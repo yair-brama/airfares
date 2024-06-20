@@ -1,11 +1,20 @@
+# Import relevant libraries
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+import plotly.express as px
+import dash
+from dash import dcc, html
+from dash.dependencies import Input, Output, State
 from dash import Dash, Input, Output, callback, dcc, html
 import copy
 import plotly.express as px
-import pandas as pd
 
-df = pd.read_csv("/content/drive/MyDrive/airfares/airfares_merged_stdgroup.csv")
+df = pd.read_csv('data/airfares_dash_sample.csv')
 
 app = Dash(__name__)
+server = app.server
 
 app.layout = html.Div(
     [
