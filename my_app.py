@@ -17,40 +17,62 @@ app = Dash(__name__)
 server = app.server
 
 app.layout = html.Div(
-    [
-        html.H5("Market"),
-        dcc.Dropdown(
-            id="market", options=sorted(df["market"].unique())
+    style={'display': 'flex', 'flex-wrap': 'wrap'}, 
+    children=[
+        html.Div(
+            style={'flex': '1', 'min-width': '300px', 'padding': '10px'},
+            children=[
+                html.H5("Market"),
+                dcc.Dropdown(
+                    id="market", options=[{'label': i, 'value': i} for i in sorted(df["market"].unique())]
+                ),
+                html.H5("Origin"),
+                dcc.Dropdown(
+                    id="origin", options=[{'label': i, 'value': i} for i in sorted(df["origin"].unique())]
+                )
+            ]
         ),
-        html.H5("Origin"),
-        dcc.Dropdown(
-            id="origin", options=sorted(df["origin"].unique())
+        html.Div(
+            style={'flex': '1', 'min-width': '300px', 'padding': '10px'},
+            children=[
+                html.H5("Departure Date"),
+                dcc.Dropdown(
+                    id="departure_date",
+                    options=[{'label': i, 'value': i} for i in sorted(df["departure_date"].unique())],
+                    value=df["departure_date"].iloc[0],
+                ),
+                html.H5("Flight Number"),
+                dcc.Dropdown(
+                    id="flight_number",
+                    options=[{'label': i, 'value': i} for i in sorted(df["flight_number"].unique())]
+                )
+            ]
         ),
-        html.H5("Departure Date"),
-        dcc.Dropdown(
-            id="departure_date",
-            options=sorted(df["departure_date"].unique()),
-            value=df["departure_date"][0],
+        html.Div(
+            style={'flex': '1', 'min-width': '300px', 'padding': '10px'},
+            children=[
+                html.H5("Trend"),
+                dcc.Dropdown(
+                    id="trend",
+                    options=[{'label': i, 'value': i} for i in sorted(df["trend"].unique())]
+                ),
+                html.H5("Volatility"),
+                dcc.Dropdown(
+                    id="stdGroup",
+                    options=[{'label': i, 'value': i} for i in sorted(df["stdGroup"].unique())]
+                )
+            ]
         ),
-        html.H5("Flight Number"),
-        dcc.Dropdown(
-            id="flight_number",
-            options=sorted(df["flight_number"].unique()),
-        ),
-        html.H5("Trend"),
-        dcc.Dropdown(
-            id="trend",
-            options=sorted(df["trend"].unique()),
-        ),
-        html.H5("Volatility"),
-        dcc.Dropdown(
-            id="stdGroup",
-            options=sorted(df["stdGroup"].unique()),
-        ),
-        html.Br(),
-        dcc.Graph(id="line"),
+        html.Div(
+            style={'width': '100%', 'padding': '10px'},
+            children=[
+                html.Br(),
+                dcc.Graph(id="line")
+            ]
+        )
     ]
 )
+
 
 
 @callback(
