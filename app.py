@@ -275,4 +275,4 @@ def line_chart(departure_date, flight_number, market, origin, trend, stdGroup):
 
 
 if __name__ == "__main__":
-    app.run()
+     app.run_server(debug=False)
